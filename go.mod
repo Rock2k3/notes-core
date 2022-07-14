@@ -1,4 +1,4 @@
-module notes-core
+module github.com/Rock2k3/notes-core
 
 go 1.18
 

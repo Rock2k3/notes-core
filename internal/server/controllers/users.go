@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"notes-core/internal/adapters"
 	"notes-core/internal/domain/users"
+	"notes-core/pkg/notesHttpServer"
 	"strings"
 )
 
@@ -16,10 +17,21 @@ type userTO struct {
 	Name string    `json:"Name"`
 }
 
-func RegisterUserHandlers(s *echo.Echo) *echo.Echo {
-	s.POST("/users", createUser)
-	s.GET("/users/:id", getUser)
-	return s
+func GetUserRoutes() []notesHttpServer.Route {
+	var r []notesHttpServer.Route
+
+	r = append(r, notesHttpServer.Route{
+		Method:  http.MethodGet,
+		Path:    "/users/:id",
+		Handler: getUser,
+	})
+	r = append(r, notesHttpServer.Route{
+		Method:  http.MethodPost,
+		Path:    "/users",
+		Handler: createUser,
+	})
+
+	return r
 }
 
 func createUser(c echo.Context) error {
@@ -28,12 +40,6 @@ func createUser(c echo.Context) error {
 	if err != nil {
 		return c.String(http.StatusBadRequest, err.Error())
 	}
-
-	//user, err := users.AddUser(adapters.NewUserFilesAdapter(), u.Name)
-	//if err != nil {
-	//	return c.String(http.StatusBadRequest, err.Error())
-	//}
-	//fmt.Println("userFileAdapter", user)
 
 	myUser, err := users.AddUser(adapters.NewUsersGrpcAdapter(), u.Name)
 	if err != nil {
