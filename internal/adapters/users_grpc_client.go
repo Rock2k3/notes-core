@@ -2,11 +2,11 @@ package adapters
 
 import (
 	"context"
+	"github.com/Rock2k3/notes-core/internal/config"
 	NotesGrpcApi "github.com/Rock2k3/notes-grpc-api/generated-sources"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"log"
-	"notes-core/internal/config"
 	"time"
 )
 

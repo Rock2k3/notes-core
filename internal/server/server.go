@@ -1,9 +1,9 @@
 package server
 
 import (
-	"notes-core/internal/config"
-	"notes-core/internal/server/controllers"
-	"notes-core/pkg/notes_http_server"
+	"github.com/Rock2k3/notes-core/internal/config"
+	"github.com/Rock2k3/notes-core/internal/server/controllers"
+	"github.com/Rock2k3/notes-core/pkg/notes_http_server"
 )
 
 type server struct {

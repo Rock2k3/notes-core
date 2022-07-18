@@ -1,9 +1,9 @@
 package main
 
 import (
+	"github.com/Rock2k3/notes-core/internal/config"
+	"github.com/Rock2k3/notes-core/internal/server"
 	"log"
-	"notes-core/internal/config"
-	"notes-core/internal/server"
 )
 
 func main() {

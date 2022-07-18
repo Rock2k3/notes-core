@@ -3,8 +3,8 @@ package adapters
 import (
 	"errors"
 	"fmt"
+	"github.com/Rock2k3/notes-core/internal/domain/users"
 	"github.com/google/uuid"
-	"notes-core/internal/domain/users"
 	"os"
 	"path/filepath"
 	"strings"

@@ -3,12 +3,12 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/Rock2k3/notes-core/internal/adapters"
+	"github.com/Rock2k3/notes-core/internal/domain/users"
+	"github.com/Rock2k3/notes-core/pkg/notes_http_server"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	"net/http"
-	"notes-core/internal/adapters"
-	"notes-core/internal/domain/users"
-	"notes-core/pkg/notes_http_server"
 	"strings"
 )
 

@@ -1,9 +1,9 @@
 package adapters
 
 import (
+	"github.com/Rock2k3/notes-core/internal/domain/users"
 	NotesGrpcApi "github.com/Rock2k3/notes-grpc-api/generated-sources"
 	"github.com/google/uuid"
-	"notes-core/internal/domain/users"
 )
 
 type usersGrpcAdapter struct {
