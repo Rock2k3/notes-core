@@ -1,4 +1,4 @@
-package notesHttpServer
+package notes_http_server
 
 import (
 	"github.com/labstack/echo/v4"

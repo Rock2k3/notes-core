@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"notes-core/internal/adapters"
 	"notes-core/internal/domain/users"
-	"notes-core/pkg/notesHttpServer"
+	"notes-core/pkg/notes_http_server"
 	"strings"
 )
 
@@ -17,15 +17,15 @@ type userTO struct {
 	Name string    `json:"Name"`
 }
 
-func GetUserRoutes() []notesHttpServer.Route {
-	var r []notesHttpServer.Route
+func GetUserRoutes() []notes_http_server.Route {
+	var r []notes_http_server.Route
 
-	r = append(r, notesHttpServer.Route{
+	r = append(r, notes_http_server.Route{
 		Method:  http.MethodGet,
 		Path:    "/users/:id",
 		Handler: getUser,
 	})
-	r = append(r, notesHttpServer.Route{
+	r = append(r, notes_http_server.Route{
 		Method:  http.MethodPost,
 		Path:    "/users",
 		Handler: createUser,
