@@ -3,7 +3,7 @@ module github.com/Rock2k3/notes-core
 go 1.18
 
 require (
-	github.com/Rock2k3/notes-grpc-api v1.1.0
+	github.com/Rock2k3/notes-grpc-api v1.1.2
 	github.com/google/uuid v1.3.0
 	github.com/joho/godotenv v1.4.0
 	github.com/labstack/echo/v4 v4.7.2

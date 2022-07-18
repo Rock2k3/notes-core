@@ -3,7 +3,7 @@ package adapters
 import (
 	"context"
 	"github.com/Rock2k3/notes-core/internal/config"
-	NotesGrpcApi "github.com/Rock2k3/notes-grpc-api/generated-sources"
+	notesgrpcapi "github.com/Rock2k3/notes-grpc-api/generated-sources"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"log"
@@ -17,7 +17,7 @@ type usersGrpcClientContext struct {
 
 type usersGrpcClient struct {
 	conn                   *grpc.ClientConn
-	client                 NotesGrpcApi.UserServiceClient
+	client                 notesgrpcapi.UserServiceClient
 	usersGrpcClientContext usersGrpcClientContext
 }
 
@@ -29,7 +29,7 @@ func NewUsersGrpcClient() *usersGrpcClient {
 		log.Printf("did not connect: %v", err)
 	}
 
-	client := NotesGrpcApi.NewUserServiceClient(conn)
+	client := notesgrpcapi.NewUserServiceClient(conn)
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 

@@ -3,16 +3,16 @@ package server
 import (
 	"github.com/Rock2k3/notes-core/internal/config"
 	"github.com/Rock2k3/notes-core/internal/server/controllers"
-	"github.com/Rock2k3/notes-core/pkg/notes_http_server"
+	"github.com/Rock2k3/notes-core/pkg/noteshttpserver"
 )
 
 type server struct {
 	config  *config.AppConfig
-	httpSrv *notes_http_server.HttpServer
+	httpSrv *noteshttpserver.HttpServer
 }
 
 func NewServer(c *config.AppConfig) *server {
-	return &server{config: c, httpSrv: notes_http_server.NewHttpServer()}
+	return &server{config: c, httpSrv: noteshttpserver.NewHttpServer()}
 }
 
 func (s *server) Run() error {

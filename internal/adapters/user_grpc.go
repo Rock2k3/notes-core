@@ -2,7 +2,7 @@ package adapters
 
 import (
 	"github.com/Rock2k3/notes-core/internal/domain/users"
-	NotesGrpcApi "github.com/Rock2k3/notes-grpc-api/generated-sources"
+	notesgrpcapi "github.com/Rock2k3/notes-grpc-api/generated-sources"
 	"github.com/google/uuid"
 )
 
@@ -18,7 +18,7 @@ func (a *usersGrpcAdapter) GetUserById(uuid uuid.UUID) (*users.MyUser, error) {
 	defer usersGrpcClient.conn.Close()
 	defer usersGrpcClient.usersGrpcClientContext.cancel()
 
-	resp, err := usersGrpcClient.client.GetUser(usersGrpcClient.usersGrpcClientContext.ctx, &NotesGrpcApi.GetUserRequest{UserId: uuid.String()})
+	resp, err := usersGrpcClient.client.GetUser(usersGrpcClient.usersGrpcClientContext.ctx, &notesgrpcapi.GetUserRequest{UserId: uuid.String()})
 	if err != nil {
 		return nil, err
 	}
@@ -36,7 +36,7 @@ func (a *usersGrpcAdapter) AddUser(name string) (*users.MyUser, error) {
 	defer usersGrpcClient.conn.Close()
 	defer usersGrpcClient.usersGrpcClientContext.cancel()
 
-	resp, err := usersGrpcClient.client.AddUser(usersGrpcClient.usersGrpcClientContext.ctx, &NotesGrpcApi.AddUserRequest{Name: name})
+	resp, err := usersGrpcClient.client.AddUser(usersGrpcClient.usersGrpcClientContext.ctx, &notesgrpcapi.AddUserRequest{Name: name})
 	if err != nil {
 		return nil, err
 	}

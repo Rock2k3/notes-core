@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/Rock2k3/notes-core/internal/adapters"
 	"github.com/Rock2k3/notes-core/internal/domain/users"
-	"github.com/Rock2k3/notes-core/pkg/notes_http_server"
+	"github.com/Rock2k3/notes-core/pkg/noteshttpserver"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	"net/http"
@@ -17,15 +17,15 @@ type userTO struct {
 	Name string    `json:"Name"`
 }
 
-func GetUserRoutes() []notes_http_server.Route {
-	var r []notes_http_server.Route
+func GetUserRoutes() []noteshttpserver.Route {
+	var r []noteshttpserver.Route
 
-	r = append(r, notes_http_server.Route{
+	r = append(r, noteshttpserver.Route{
 		Method:  http.MethodGet,
 		Path:    "/users/:id",
 		Handler: getUser,
 	})
-	r = append(r, notes_http_server.Route{
+	r = append(r, noteshttpserver.Route{
 		Method:  http.MethodPost,
 		Path:    "/users",
 		Handler: createUser,
