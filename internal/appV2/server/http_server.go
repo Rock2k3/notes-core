@@ -2,8 +2,8 @@ package server
 
 import (
 	"github.com/Rock2k3/notes-core/internal/appV2/config"
+	"github.com/Rock2k3/notes-core/internal/appV2/server/routes"
 	"github.com/labstack/echo/v4"
-	"net/http"
 )
 
 type httpServer struct {
@@ -25,11 +25,6 @@ func (s httpServer) Run(c *config.AppConfig) error {
 }
 
 func (s httpServer) configureRouter() {
-	s.router.Add(http.MethodGet, "/health_check", s.HealthCheckHandler())
-}
-
-func (s httpServer) HealthCheckHandler() echo.HandlerFunc {
-	return func(c echo.Context) error {
-		return c.String(http.StatusOK, "Ok")
-	}
+	routes.AddHealthCheckRoutes(s.router)
+	routes.AddUserRoutes(s.router)
 }
