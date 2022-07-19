@@ -20,10 +20,12 @@ func main() {
 
 	appLogger := logger.NewAppLogger(appConfig)
 	appLogger.Init()
-	l := appLogger.Logger()
-	defer l.Sync()
+	defer appLogger.Sync()
 
-	server.NewServer(appConfig, l)
-	l.Info("app started")
+	s := server.NewServer(appConfig, appLogger)
+	err := s.Run()
+	if s.Run() != nil {
+		appLogger.Fatalf("Error starting server %v", err)
+	}
 
 }

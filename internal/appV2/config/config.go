@@ -6,9 +6,9 @@ import (
 )
 
 type AppConfig struct {
-	httpAddress             string
-	grpcUsersServiceAddress string
-	logLevel                string
+	logLevel string
+	http     HttpConfig
+	grpc     GrpcConfig
 }
 
 func NewAppConfig() *AppConfig {
@@ -16,21 +16,27 @@ func NewAppConfig() *AppConfig {
 }
 
 func (c AppConfig) GetConfig() *AppConfig {
-	return &AppConfig{
-		httpAddress:             fmt.Sprintf(":%s", os.Getenv("HTTP_PORT")),
-		grpcUsersServiceAddress: os.Getenv("GRPC_USERS_SERVICE_ADDRESS"),
-		logLevel:                os.Getenv("LOG_LEVEL"),
+	httpCfg := HttpConfig{
+		httpAddress: fmt.Sprintf(":%s", os.Getenv("HTTP_PORT")),
 	}
-}
-
-func (c *AppConfig) HttpAddress() string {
-	return c.httpAddress
-}
-
-func (c *AppConfig) GrpcUsersServiceUrl() string {
-	return c.grpcUsersServiceAddress
+	grpcCfg := GrpcConfig{
+		grpcUsersServiceAddress: os.Getenv("GRPC_USERS_SERVICE_ADDRESS"),
+	}
+	return &AppConfig{
+		logLevel: os.Getenv("LOG_LEVEL"),
+		http:     httpCfg,
+		grpc:     grpcCfg,
+	}
 }
 
 func (c *AppConfig) LogLevel() string {
 	return c.logLevel
+}
+
+func (c *AppConfig) Http() HttpConfig {
+	return c.http
+}
+
+func (c *AppConfig) Grpc() GrpcConfig {
+	return c.grpc
 }
