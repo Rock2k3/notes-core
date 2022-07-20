@@ -1,8 +1,8 @@
 package client
 
 import (
-	"github.com/Rock2k3/notes-core/internal/appV2/config"
-	notesgrpcapi "github.com/Rock2k3/notes-grpc-api/generated-sources"
+	"github.com/Rock2k3/notes-core/internal/config"
+	notesgrpcapi "github.com/Rock2k3/notes-grpc-api/v2/generated-sources"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )

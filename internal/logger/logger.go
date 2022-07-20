@@ -1,7 +1,7 @@
 package logger
 
 import (
-	"github.com/Rock2k3/notes-core/internal/appV2/config"
+	"github.com/Rock2k3/notes-core/internal/config"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"

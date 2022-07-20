@@ -1,8 +1,8 @@
 package server
 
 import (
-	"github.com/Rock2k3/notes-core/internal/appV2/config"
-	"github.com/Rock2k3/notes-core/internal/appV2/logger"
+	"github.com/Rock2k3/notes-core/internal/config"
+	"github.com/Rock2k3/notes-core/internal/logger"
 )
 
 type server struct {

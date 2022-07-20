@@ -2,32 +2,48 @@ package config
 
 import (
 	"fmt"
-	"github.com/joho/godotenv"
-	"log"
 	"os"
 )
 
+var config *AppConfig
+
 type AppConfig struct {
-	httpAddress         string
-	grpcUsersServiceUrl string
+	logLevel string
+	http     httpConfig
+	grpc     grpcConfig
 }
 
-func NewAppConfig() (*AppConfig, error) {
-	err := godotenv.Load(".env")
-	if err != nil {
-		log.Fatal("Error loading .env file")
+func GetAppConfig() *AppConfig {
+	return config
+}
+
+func NewAppConfig() *AppConfig {
+	return &AppConfig{}
+}
+
+func (c AppConfig) Init() {
+	httpCfg := httpConfig{
+		httpAddress: fmt.Sprintf(":%s", os.Getenv("HTTP_PORT")),
+	}
+	grpcCfg := grpcConfig{
+		grpcUsersServiceAddress: os.Getenv("GRPC_USERS_SERVICE"),
 	}
 
-	return &AppConfig{
-		httpAddress:         fmt.Sprintf(":%s", os.Getenv("HTTP_PORT")),
-		grpcUsersServiceUrl: os.Getenv("GRPC_USERS_SERVICE"),
-	}, nil
+	config = &AppConfig{
+		logLevel: os.Getenv("LOG_LEVEL"),
+		http:     httpCfg,
+		grpc:     grpcCfg,
+	}
 }
 
-func (c *AppConfig) HttpAddress() string {
-	return c.httpAddress
+func (c *AppConfig) LogLevel() string {
+	return c.logLevel
 }
 
-func (c *AppConfig) GrpcUsersServiceUrl() string {
-	return c.grpcUsersServiceUrl
+func (c *AppConfig) Http() *httpConfig {
+	return &c.http
+}
+
+func (c *AppConfig) Grpc() *grpcConfig {
+	return &c.grpc
 }

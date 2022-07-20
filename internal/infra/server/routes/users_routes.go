@@ -1,10 +1,11 @@
 package routes
 
 import (
+	"encoding/json"
 	"fmt"
-	"github.com/Rock2k3/notes-core/internal/appV2/adapters"
-	"github.com/Rock2k3/notes-core/internal/appV2/domain/users"
-	"github.com/Rock2k3/notes-core/internal/appV2/logger"
+	"github.com/Rock2k3/notes-core/internal/adapters"
+	"github.com/Rock2k3/notes-core/internal/domain/users"
+	"github.com/Rock2k3/notes-core/internal/logger"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	"net/http"
@@ -51,13 +52,22 @@ func handlerGetUserByUUID() echo.HandlerFunc {
 
 func handlerAddUser() echo.HandlerFunc {
 	return func(c echo.Context) error {
-
-		userUUID, _ := uuid.NewRandom()
-		user := userTO{
-			UUID: userUUID,
-			Name: "test name",
+		var u userTO
+		err := json.NewDecoder(c.Request().Body).Decode(&u)
+		if err != nil {
+			return c.String(http.StatusBadRequest, err.Error())
 		}
 
-		return c.JSON(http.StatusOK, user)
+		myUser, err := users.AddUser(adapters.NewUsersGrpcAdapter(), u.Name)
+		if err != nil {
+			if strings.Contains(err.Error(), "duplicate key value violates unique constraint") {
+				return c.String(http.StatusConflict, "Пользователь с таки именем уже существует")
+			}
+			return err
+		}
+
+		u.UUID = myUser.UserUUID
+
+		return c.JSON(http.StatusOK, u)
 	}
 }

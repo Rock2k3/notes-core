@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"github.com/Rock2k3/notes-core/internal/appV2/logger"
+	"github.com/Rock2k3/notes-core/internal/logger"
 	"github.com/labstack/echo/v4"
 	"net/http"
 )
@@ -9,7 +9,7 @@ import (
 func RegisterHealthCheckRoutes(router *echo.Router) {
 	log := logger.GetAppLogger()
 	log.Debug("RegisterHealthCheckRoutes")
-	
+
 	router.Add(http.MethodGet, "/health_check", handlerHealthCheck())
 }
 

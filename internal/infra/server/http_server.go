@@ -1,8 +1,8 @@
 package server
 
 import (
-	"github.com/Rock2k3/notes-core/internal/appV2/config"
-	"github.com/Rock2k3/notes-core/internal/appV2/infra/server/routes"
+	"github.com/Rock2k3/notes-core/internal/config"
+	routes2 "github.com/Rock2k3/notes-core/internal/infra/server/routes"
 	"github.com/labstack/echo/v4"
 )
 
@@ -25,6 +25,6 @@ func (s httpServer) Run(c *config.AppConfig) error {
 }
 
 func (s httpServer) configureRouter() {
-	routes.RegisterHealthCheckRoutes(s.router)
-	routes.RegisterUserRoutes(s.router)
+	routes2.RegisterHealthCheckRoutes(s.router)
+	routes2.RegisterUserRoutes(s.router)
 }
