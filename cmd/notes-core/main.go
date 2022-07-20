@@ -21,7 +21,6 @@ func main() {
 
 	appLogger := logger.NewAppLogger(appConfig)
 	appLogger.Init()
-	appLogger.Named("main")
 	defer appLogger.Sync()
 
 	s := server.NewServer(appLogger)

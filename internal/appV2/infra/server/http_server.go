@@ -25,6 +25,6 @@ func (s httpServer) Run(c *config.AppConfig) error {
 }
 
 func (s httpServer) configureRouter() {
-	routes.AddHealthCheckRoutes(s.router)
-	routes.AddUserRoutes(s.router)
+	routes.RegisterHealthCheckRoutes(s.router)
+	routes.RegisterUserRoutes(s.router)
 }

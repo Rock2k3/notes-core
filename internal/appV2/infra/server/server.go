@@ -20,7 +20,6 @@ func NewServer(l logger.AppLogger) *server {
 }
 
 func (s server) Run() error {
-	s.logger.Info("http server starting")
 	err := s.httpServer.Run(s.config)
 	if err != nil {
 		return err

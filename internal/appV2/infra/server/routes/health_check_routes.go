@@ -1,11 +1,15 @@
 package routes
 
 import (
+	"github.com/Rock2k3/notes-core/internal/appV2/logger"
 	"github.com/labstack/echo/v4"
 	"net/http"
 )
 
-func AddHealthCheckRoutes(router *echo.Router) {
+func RegisterHealthCheckRoutes(router *echo.Router) {
+	log := logger.GetAppLogger()
+	log.Debug("RegisterHealthCheckRoutes")
+	
 	router.Add(http.MethodGet, "/health_check", handlerHealthCheck())
 }
 

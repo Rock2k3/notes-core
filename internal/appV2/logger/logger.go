@@ -8,6 +8,8 @@ import (
 	"os"
 )
 
+var logger *appLogger
+
 type AppLogger interface {
 	Init()
 	Sync()
@@ -42,10 +44,12 @@ func NewAppLogger(c *config.AppConfig) *appLogger {
 		"fatal":  zapcore.FatalLevel,
 	}
 
-	return &appLogger{
+	logger = &appLogger{
 		logLevel:       c.LogLevel(),
 		loggerLevelMap: loggerLevelMap,
 	}
+
+	return logger
 }
 
 func (l *appLogger) Init() {
@@ -88,6 +92,10 @@ func (l appLogger) getLoggerLevel() zapcore.Level {
 		return loggerLevel
 	}
 	return zapcore.InfoLevel
+}
+
+func GetAppLogger() *appLogger {
+	return logger
 }
 
 func (l *appLogger) Sync() {

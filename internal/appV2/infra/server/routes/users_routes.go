@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/Rock2k3/notes-core/internal/appV2/adapters"
 	"github.com/Rock2k3/notes-core/internal/appV2/domain/users"
+	"github.com/Rock2k3/notes-core/internal/appV2/logger"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	"net/http"
@@ -15,7 +16,10 @@ type userTO struct {
 	Name string    `json:"Name"`
 }
 
-func AddUserRoutes(router *echo.Router) {
+func RegisterUserRoutes(router *echo.Router) {
+	log := logger.GetAppLogger()
+	log.Debug("RegisterUserRoutes")
+
 	router.Add(http.MethodGet, "/users/:uuid", handlerGetUserByUUID())
 	router.Add(http.MethodPost, "/users", handlerAddUser())
 }
