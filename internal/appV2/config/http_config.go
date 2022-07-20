@@ -1,9 +1,9 @@
 package config
 
-type HttpConfig struct {
+type httpConfig struct {
 	httpAddress string
 }
 
-func (c HttpConfig) HttpAddress() string {
+func (c httpConfig) HttpAddress() string {
 	return c.httpAddress
 }

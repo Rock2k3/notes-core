@@ -11,9 +11,9 @@ type server struct {
 	httpServer *httpServer
 }
 
-func NewServer(c *config.AppConfig, l logger.AppLogger) *server {
+func NewServer(l logger.AppLogger) *server {
 	return &server{
-		config:     c,
+		config:     config.GetAppConfig(),
 		logger:     l,
 		httpServer: NewHttpServer(),
 	}

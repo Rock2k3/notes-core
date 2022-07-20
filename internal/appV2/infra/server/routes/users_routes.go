@@ -1,9 +1,13 @@
 package routes
 
 import (
+	"fmt"
+	"github.com/Rock2k3/notes-core/internal/appV2/adapters"
+	"github.com/Rock2k3/notes-core/internal/appV2/domain/users"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	"net/http"
+	"strings"
 )
 
 type userTO struct {
@@ -24,19 +28,17 @@ func handlerGetUserByUUID() echo.HandlerFunc {
 			return c.String(http.StatusBadRequest, err.Error())
 		}
 
-		//myUser := users.MyUser{UserId: userId}
-
-		//myUser, err := users.GetUserByUUID(adapters.NewUsersGrpcAdapter(), userId)
-		//if err != nil {
-		//	if strings.Contains(err.Error(), "no rows in result set") {
-		//		return c.String(http.StatusNotFound, fmt.Sprintf("Пользователя с id: %s не существует", userId))
-		//	}
-		//	return err
-		//}
+		myUser, err := users.GetUserByUUID(adapters.NewUsersGrpcAdapter(), userUUID)
+		if err != nil {
+			if strings.Contains(err.Error(), "no rows in result set") {
+				return c.String(http.StatusNotFound, fmt.Sprintf("Пользователя с UUID: %s не существует", userUUID))
+			}
+			return err
+		}
 
 		user := userTO{
 			UUID: userUUID,
-			Name: "test name",
+			Name: myUser.Name,
 		}
 
 		return c.JSON(http.StatusOK, user)

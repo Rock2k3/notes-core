@@ -2,7 +2,7 @@ package server
 
 import (
 	"github.com/Rock2k3/notes-core/internal/appV2/config"
-	"github.com/Rock2k3/notes-core/internal/appV2/server/routes"
+	"github.com/Rock2k3/notes-core/internal/appV2/infra/server/routes"
 	"github.com/labstack/echo/v4"
 )
 

@@ -1,9 +1,9 @@
 package config
 
-type GrpcConfig struct {
+type grpcConfig struct {
 	grpcUsersServiceAddress string
 }
 
-func (c GrpcConfig) GrpcUsersServiceAddress() string {
+func (c grpcConfig) GrpcUsersServiceAddress() string {
 	return c.grpcUsersServiceAddress
 }
