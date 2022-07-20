@@ -9,6 +9,9 @@ import (
 )
 
 type AppLogger interface {
+	Init()
+	Sync()
+	Named(name string)
 	Info(args ...any)
 	Infof(s string, args ...any)
 	Debug(args ...any)
@@ -73,6 +76,7 @@ func (l *appLogger) Init() {
 		zapcore.NewCore(consoleEncoder, consoleDebugging, zap.NewAtomicLevelAt(loggerLevel)),
 	)
 	logger := zap.New(core, zap.AddCaller(), zap.AddCallerSkip(1))
+	logger = logger.Named("notes-core")
 
 	l.logger = logger
 	l.sugaredLogger = logger.Sugar()
@@ -87,8 +91,13 @@ func (l appLogger) getLoggerLevel() zapcore.Level {
 }
 
 func (l *appLogger) Sync() {
-	l.logger.Sync()
-	l.sugaredLogger.Sync()
+	go l.logger.Sync()
+	go l.sugaredLogger.Sync()
+}
+
+func (l *appLogger) Named(name string) {
+	l.logger = l.logger.Named(name)
+	l.sugaredLogger = l.sugaredLogger.Named(name)
 }
 
 func (l *appLogger) Info(args ...any) {
