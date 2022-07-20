@@ -34,8 +34,8 @@ func handlerGetUserByUUID() echo.HandlerFunc {
 		}
 
 		myUser, err := users.GetUserByUUID(adapters.NewUsersGrpcAdapter(), userUUID)
-		if err != nil {
-			if strings.Contains(err.Error(), "no rows in result set") {
+		if err != nil || myUser == nil {
+			if strings.Contains(err.Error(), "no rows in result set") || myUser == nil {
 				return c.String(http.StatusNotFound, fmt.Sprintf("Пользователя с UUID: %s не существует", userUUID))
 			}
 			return err

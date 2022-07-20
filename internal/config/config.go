@@ -26,7 +26,7 @@ func (c AppConfig) Init() {
 		httpAddress: fmt.Sprintf(":%s", os.Getenv("HTTP_PORT")),
 	}
 	grpcCfg := grpcConfig{
-		grpcUsersServiceAddress: os.Getenv("GRPC_USERS_SERVICE"),
+		grpcUsersServiceAddress: os.Getenv("GRPC_USERS_SERVICE_ADDRESS"),
 	}
 
 	config = &AppConfig{

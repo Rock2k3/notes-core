@@ -29,6 +29,9 @@ func (a *usersGrpcAdapter) GetUserByUUID(uuid uuid.UUID) (*users.MyUser, error) 
 	if err != nil {
 		return nil, err
 	}
+	if resp == nil {
+		return nil, nil
+	}
 
 	user := &users.MyUser{
 		UserUUID: uuid,
