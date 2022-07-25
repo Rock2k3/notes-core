@@ -21,11 +21,14 @@ func RegisterUserRoutes(router *echo.Router) {
 	log := logger.GetAppLogger()
 	log.Debug("RegisterUserRoutes")
 
-	router.Add(http.MethodGet, "/users/:uuid", handlerGetUserByUUID())
-	router.Add(http.MethodPost, "/users", handlerAddUser())
+	usersGrpcAdapter := adapters.NewUsersGrpcAdapter()
+
+	router.Add(http.MethodGet, "/users/:uuid", handlerGetUserByUUID(usersGrpcAdapter))
+	router.Add(http.MethodPost, "/users", handlerAddUser(usersGrpcAdapter))
 }
 
-func handlerGetUserByUUID() echo.HandlerFunc {
+func handlerGetUserByUUID(users users.MyUsers) echo.HandlerFunc {
+	//usersGrpcAdapter := adapters.NewUsersGrpcAdapter()
 
 	return func(c echo.Context) error {
 		userUUID, err := uuid.Parse(c.Param("uuid"))
@@ -33,7 +36,8 @@ func handlerGetUserByUUID() echo.HandlerFunc {
 			return c.String(http.StatusBadRequest, err.Error())
 		}
 
-		myUser, err := users.GetUserByUUID(adapters.NewUsersGrpcAdapter(), userUUID)
+		//myUser, err := usersGrpcAdapter.GetUserByUUID(userUUID)
+		myUser, err := users.GetUserByUUID(userUUID)
 		if err != nil || myUser == nil {
 			if strings.Contains(err.Error(), "no rows in result set") || myUser == nil {
 				return c.String(http.StatusNotFound, fmt.Sprintf("Пользователя с UUID: %s не существует", userUUID))
@@ -50,7 +54,9 @@ func handlerGetUserByUUID() echo.HandlerFunc {
 	}
 }
 
-func handlerAddUser() echo.HandlerFunc {
+func handlerAddUser(users users.MyUsers) echo.HandlerFunc {
+	//usersGrpcAdapter := adapters.NewUsersGrpcAdapter()
+
 	return func(c echo.Context) error {
 		var u userTO
 		err := json.NewDecoder(c.Request().Body).Decode(&u)
@@ -58,7 +64,8 @@ func handlerAddUser() echo.HandlerFunc {
 			return c.String(http.StatusBadRequest, err.Error())
 		}
 
-		myUser, err := users.AddUser(adapters.NewUsersGrpcAdapter(), u.Name)
+		//myUser, err := usersGrpcAdapter.GetUserByUUID(userUUID)
+		myUser, err := users.AddUser(u.Name)
 		if err != nil {
 			if strings.Contains(err.Error(), "duplicate key value violates unique constraint") {
 				return c.String(http.StatusConflict, "Пользователь с таки именем уже существует")
